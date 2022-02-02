@@ -17,17 +17,16 @@ var expandedAttribution = new ol.control.Attribution({
 });
 
 var map = new ol.Map({
-//     controls: ol.control.defaults({attribution:false}).extend([
-//         expandedAttribution
-//     ]),
-    controls: [],
+    controls: ol.control.defaults({attribution:true, zoom: false})
+          // .extend([expandedAttribution])
+        , // https://openlayers.org/en/latest/apidoc/module-ol_control.html
     target: document.getElementById('map'),
     renderer: 'canvas',
     overlays: [overlayPopup],
     layers: layersList,
     interactions: ol.interaction.defaults({altShiftDragRotate:false, pinchRotate:false}),
     view: new ol.View({
-         // extent: [161031.627566, -823790.022248, 7190948.064072, 4076919.622329],
+         extent: [161031.627566, -823790.022248, 7190948.064072, 4076919.622329],
          maxZoom: 6, minZoom: 4
     })
 });
