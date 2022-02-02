@@ -26,7 +26,7 @@ var lyr_HeightMapSRTM_1 = new ol.layer.Image({
         projection: "EPSG:3857",
         alwaysInRange: true,
         imageExtent: [
-            2306401.183668, -793048.697985, 4723712.636771, 3871465.418801,
+            2560543.952576, -556488.005833, 4451838.977009, 3762256.302663,
         ],
     }),
 });
@@ -40,7 +40,7 @@ var lyr_ShadingMapSRTM_2 = new ol.layer.Image({
         projection: "EPSG:3857",
         alwaysInRange: true,
         imageExtent: [
-            2305882.446752, -794057.146093, 4723592.805458, 3872274.303361,
+            2560970.583900, -556386.475731, 4452561.659738, 3762298.509397,
         ],
     }),
 });
