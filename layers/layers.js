@@ -6,7 +6,7 @@ var features_WorldBaseMap_0 = format_WorldBaseMap_0.readFeatures(
     { dataProjection: "EPSG:4326", featureProjection: "EPSG:3857" }
 );
 var jsonSource_WorldBaseMap_0 = new ol.source.Vector({
-    attributions: "Eng. Hosam El-Nagar - Nile Forecast Center Dashboard",
+    attributions: "Eng. Hosam El-Nagar - Nile Forecast Center - MWRI",
 });
 jsonSource_WorldBaseMap_0.addFeatures(features_WorldBaseMap_0);
 var lyr_WorldBaseMap_0 = new ol.layer.Vector({
