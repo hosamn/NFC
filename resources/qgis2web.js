@@ -26,8 +26,9 @@ var map = new ol.Map({
     layers: layersList,
     interactions: ol.interaction.defaults({altShiftDragRotate:false, pinchRotate:false}),
     view: new ol.View({
-         extent: [161031.627566, -823790.022248, 7190948.064072, 4076919.622329],
-         maxZoom: 6, minZoom: 4
+         extent: [161000, -823800, 7190900, 4076900],
+         showFullExtent: true,
+         maxZoom: 5, minZoom: 5
     })
 });
 
