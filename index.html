@@ -36,78 +36,8 @@
 <body>
 
     <div class="container">
-        <div class="mapDiv p-1 mb-0">
-
-            <svg viewBox="0 0 400 600">
-                <image xlink:href="./img/Basin_base.png" x="0" y="0" width="100%" />
-
-                <a xlink:href="#had" onclick="gotoSlide('had_pg')" xlink:title="High Aswan Dam"> <clipPath id="hadhad"> <polygon points="219, 175, 280, 175, 280, 207, 219, 207" />           </clipPath>       <image id="had" class="hidd" xlink:href="./img/Basin.png" clip-path="url(#hadhad)" x="0" y="0" width="100%" />   </a>
-                <a xlink:href="#don" onclick="gotoSlide('don_pg')" xlink:title="Dongola">        <clipPath id="dondon"> <polygon points="160, 284, 214, 284, 214, 319, 160, 319" />           </clipPath>       <image id="don" class="hidd" xlink:href="./img/Basin.png" clip-path="url(#dondon)" x="0" y="0" width="100%" />   </a>
-                <a xlink:href="#gab" onclick="gotoSlide('gab_pg')" xlink:title="Gabal Al Awlia"> <clipPath id="gabgab"> <polygon points="154, 377, 207, 377, 231, 402, 208, 402, 154, 402" /> </clipPath>       <image id="gab" class="hidd" xlink:href="./img/Basin.png" clip-path="url(#gabgab)" x="0" y="0" width="100%" />   </a>
-                <a xlink:href="#khr" onclick="gotoSlide('khr_pg')" xlink:title="Al Khartoom">    <clipPath id="khrkhr"> <polygon points="214, 383, 229, 366, 280, 365, 280, 392, 223, 392" /> </clipPath>       <image id="khr" class="hidd" xlink:href="./img/Basin.png" clip-path="url(#khrkhr)" x="0" y="0" width="100%" />   </a>
-                <a xlink:href="#mlk" onclick="gotoSlide('mlk_pg')" xlink:title="Malkal">         <clipPath id="mlkmlk"> <polygon points="193, 520, 245, 520, 245, 553, 193, 553" />           </clipPath>       <image id="mlk" class="hidd" xlink:href="./img/Basin.png" clip-path="url(#mlkmlk)" x="0" y="0" width="100%" />   </a>
-                <a xlink:href="#ros" onclick="gotoSlide('ros_pg')" xlink:title="Rosiers">        <clipPath id="rosros"> <polygon points="222, 460, 276, 460, 276, 490, 222, 490" />           </clipPath>       <image id="ros" class="hidd" xlink:href="./img/Basin.png" clip-path="url(#rosros)" x="0" y="0" width="100%" />   </a>
-                <a xlink:href="#sen" onclick="gotoSlide('sen_pg')" xlink:title="Sennar">         <clipPath id="sensen"> <polygon points="232, 417, 289, 417, 289, 445, 232, 445" />           </clipPath>       <image id="sen" class="hidd" xlink:href="./img/Basin.png" clip-path="url(#sensen)" x="0" y="0" width="100%" />   </a>
-                <a xlink:href="#atb" onclick="gotoSlide('atb_pg')" xlink:title="Atbara">         <clipPath id="atbatb"> <polygon points="244, 323, 309, 323, 309, 356, 244, 356" />           </clipPath>       <image id="atb" class="hidd" xlink:href="./img/Basin.png" clip-path="url(#atbatb)" x="0" y="0" width="100%" />   </a>
-                <a xlink:href="#dim" onclick="gotoSlide('dim_pg')" xlink:title="El Diem">        <clipPath id="dimdim"> <polygon points="276, 470, 320, 470, 320, 500, 276, 500" />           </clipPath>       <image id="dim" class="hidd" xlink:href="./img/Basin.png" clip-path="url(#dimdim)" x="0" y="0" width="100%" />   </a>
-            </svg>
-
-        </div>
-        <div class="contentDiv">
-
-            <div id="presDiv" class="pressDiv p-1 mb-0">
-
-                <img    id="wel_pg" class="presFrame" src="./img/cover/cover.png" height="50px"/>
-                <iframe id="had_pg" class="presFrame" src="./chart.html?stationtype=1&outputname=had&rivername=Main%20Nile&stationname=High Aswan"      scrolling="no" loading="lazy"></iframe>
-                <iframe id="don_pg" class="presFrame" src="./chart.html?stationtype=2&outputname=don&rivername=Main%20Nile&stationname=Dongola"         scrolling="no" loading="lazy"></iframe>
-                <iframe id="gab_pg" class="presFrame" src="./chart.html?stationtype=1&outputname=gab&rivername=White%20Nile&stationname=Gabal Al Awlia" scrolling="no" loading="lazy"></iframe>
-                <iframe id="khr_pg" class="presFrame" src="./chart.html?stationtype=2&outputname=khr&rivername=Blue%20Nile&stationname=Al Khartoom"     scrolling="no" loading="lazy"></iframe>
-                <iframe id="mlk_pg" class="presFrame" src="./chart.html?stationtype=2&outputname=mlk&rivername=White%20Nile&stationname=Malkal"         scrolling="no" loading="lazy"></iframe>
-                <iframe id="ros_pg" class="presFrame" src="./chart.html?stationtype=1&outputname=ros&rivername=Blue%20Nile&stationname=Rosiers"         scrolling="no" loading="lazy"></iframe>
-                <iframe id="sen_pg" class="presFrame" src="./chart.html?stationtype=1&outputname=sen&rivername=Blue%20Nile&stationname=Sennar"          scrolling="no" loading="lazy"></iframe>
-                <iframe id="atb_pg" class="presFrame" src="./chart.html?stationtype=2&outputname=atb&rivername=Main%20Nile&stationname=Atbara"          scrolling="no" loading="lazy"></iframe>
-                <iframe id="dim_pg" class="presFrame" src="./chart.html?stationtype=2&outputname=dim&rivername=Blue%20Nile&stationname=El Diem"         scrolling="no" loading="lazy"></iframe>
-                <!-- <iframe src="" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe> -->
-            </div>
-
-            <div class="cntrlDiv p-2 mb-0">
-                <div class="sometext">
-                    <p>Choose a location on the map, or use the arrows:
-                        <br>
-                    Click on the title below to return home...</p>
-                </div>
-                <div class="buttons text-center">
-                    <div  class="button" onclick="nextslide('<<')">
-                        <svg class="buttsvg" width="80%" viewBox="0 0 16 16">
-                            <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z" />
-                        </svg>
-                    </div>
-                    <div class="button"  onclick="nextslide('>>')">
-                        <svg class="buttsvg" width="80%" viewBox="0 0 16 16">
-                            <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1z" />
-                        </svg>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="titleDiv p-4 mb-0" onclick="window.location = '';">
-            <span id="title">Nile Forecast Center Dashboard</span>
-            <br>
-            <span id="subtitle">By:   Eng. Hosam El Nagar</span>
-            <br>
-            <span>Last Updated:</span>
-            <span id="currentDate">date</span>
-        </div>
+        <H1>Coming Soon!</H1>
     </div>
-
-    <!-- hide all iframes and show the welcome page: -->
-    <script>
-        myStart();
-        adddate();
-    </script>
-
 </body>
 
 </html>
