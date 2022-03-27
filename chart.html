@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Chart</title>
+	
+	<meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="stylesheet" href="./css/chart.css">
+	
+	<script src="./js/jquery.js"></script>
+	<script src="./js/chart.js"></script>
+	<script src="./js/highcharts.js"></script>
+	<script src="./js/highcharts-more.js"></script>
+
+</head>
+
+<body onload="loadLvl()">
+	<div id="main">
+		
+		<div id="container" style="width: 100%; height: 360px; margin: 0px auto; color: rgb(0, 0, 0); overflow: hidden;"
+		data-highcharts-chart="0"></div>
+		
+		<div>
+			<ul id="reservoirButtons" class="actions fit">
+				<li><a href="#" id="btnLvl" class="button     fit small                 " onclick="loadLvl()"> Levels    </a></li>
+				<li><a href="#" id="btnDis" class="button alt fit small stationsButtons" onclick="loadDis()"> Discharge </a></li>
+				<li><a href="#" id="btnRle" class="button alt fit small reservoirButtons" onclick="loadRle()"> Release   </a></li>
+				<!-- <li><a href="#" id="btnVol" class="button alt fit small reservoirButtons" onclick="loadVol()"> Volume    </a></li> -->
+			</ul>
+		</div>
+
+		<div id="note" align="right">By: Eng. Hosam El Nagar</div>
+	</div>
+
+</body>
+
+</html>

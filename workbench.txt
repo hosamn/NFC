@@ -1,0 +1,195 @@
+levelData()            >       dataLoader(Lvl)
+inflowData()           >       dataLoader(Dis)
+outflowData_ALT()      >       dataLoader(Rle)
+outflowData_L8()       >       dataLoader(Rle)
+outflowData_S1()       >       dataLoader(Rle)
+outflowData_S2()       >       dataLoader(Rle)
+storageData_ALT()      >       dataLoader(Vol)
+storageData_L8()       >       dataLoader(Vol)
+storageData_S1()       >       dataLoader(Vol)
+storageData_S2()       >       dataLoader(Vol)
+inflowRangeData()      >       dataLoader(Dis)
+outflowRangeData()     >       dataLoader(Dis)
+storageRangeData()     >       dataLoader(Dis)
+AEC()                  >       dataLoader(Dis)
+
+
+
+    // csvDataType is one of ["Lvl", "Dis", "Vol", "Rle"]
+
+
+
+####################################
+
+renaming nfs exported files for the dash board!
+
+Dis_Sta_Atbara.csv        >    Dis_atb
+Dis_Sta_Diem.csv          >    Dis_dim
+Dis_Sta_Dongala.csv       >    Dis_don
+Dis_Sta_Gabel.csv         >    Dis_gab
+Dis_Sta_HighDam.csv       >    Dis_had
+Dis_Sta_KharBlue.csv      >    Dis_khr
+Dis_Sta_Khashn.csv        >    
+Dis_Sta_Malakal.csv       >    Dis_mlk
+Dis_Sta_Roseires.csv      >    Dis_ros
+Dis_Sta_Sennar.csv        >    Dis_sen
+DSL_Res_Gabel.csv         >    
+Lvl_Sta_Atbara.csv        >    Lvl_atb
+Lvl_Sta_AtNile.csv        >    
+Lvl_Sta_Diem.csv          >    Lvl_dim
+Lvl_Sta_Dongala.csv       >    Lvl_don
+Lvl_Sta_KharBlue.csv      >    Lvl_khr
+Lvl_Sta_Malakal.csv       >    Lvl_mlk
+Lvl_Sta_Roseires.csv      >    
+Rle_Res_Gabel.csv         >    Rle_gab
+Rle_Res_HighDam.csv       >    Rle_had
+Rle_Res_Khashn.csv        >    
+Rle_Res_Roseires.csv      >    Rle_ros
+Rle_Res_Sennar.csv        >    Rle_sen
+USL_Res_Gabel.csv         >    Lvl_gab
+USL_Res_HighDam.csv       >    Lvl_had
+USL_Res_Khashn.csv        >    
+USL_Res_Roseires.csv      >    Lvl_ros
+USL_Res_Sennar.csv        >    Lvl_sen
+Vol_Atbara.csv            >    Vol_atb
+Vol_Diem.csv              >    Vol_dim
+Vol_Dongala.csv           >    Vol_don
+Vol_Gabel.csv             >    Vol_gab
+Vol_KharBlue.csv          >    Vol_khr
+Vol_Malakal.csv           >    Vol_mlk
+Vol_Roseires.csv          >    Vol_ros
+Vol_Sennar.csv            >    Vol_sen
+
+
+
+drop:
+    Lvl_Sta_AtNile
+    Lvl_Sta_Roseires
+    DSL_Res_Gabel
+    Rle_Res_Khashn
+    USL_Res_Khashn
+    Dis_Sta_Khashn
+
+
+del:
+    Sta_   14
+    Res_   8
+
+
+rername:
+    USL        >   Lvl    (4) 
+
+    HighDam    >   had
+    Dongala    >   don
+    Gabel      >   gab
+    KharBlue   >   khr
+    Malakal    >   mlk
+    Roseires   >   ros
+    Sennar     >   sen
+    Atbara     >   atb
+    Diem       >   dim
+
+
+##############################################################
+
+Website:
+
+
+	had
+	don
+	gab
+	khr
+	mlk
+	ros
+	sen
+	atb
+	dim
+
+
+	_Level.txt
+	_AEC.txt
+	_Inflow.txt
+	_Storage_ALT.txt
+	_Storage_L8.txt
+	_Storage_S1.txt
+	_Storage_S2.txt
+	_Outflow_ALT.txt
+	_Outflow_L8.txt
+	_Outflow_S1.txt
+	_Outflow_S2.txt
+	_Climatology.txt
+
+
+	_RES.txt
+	_Range.txt
+
+
+	loadlevel()
+	loadinflow()
+	loadoutflow()
+	loadstorage()
+	loadaec()
+
+    
++++++++++++++++
+
+
+NFS60 Exports: (36 files)
+
+	Station Observed Daily Levels (7 files)
+	Station Calculated Daily Discharge (10 files)
+	Reservoir Observed Daily Releases (5 files)
+	Reservoir Observed Daily Levels (6 files)
+	Calculated Passing Daily Volumes (8 files)
+
+
+
+	Station Observed Daily Levels:
+		Lvl_Sta_AtNile
+		Lvl_Sta_Atbara
+		Lvl_Sta_Diem
+		Lvl_Sta_Dongala
+		Lvl_Sta_KharBlue
+		Lvl_Sta_Malakal
+		Lvl_Sta_Roseires
+
+
+	Station Calculated Daily Discharge:
+		Dis_Sta_Atbara
+		Dis_Sta_Diem
+		Dis_Sta_Dongala
+		Dis_Sta_HighDam
+		Dis_Sta_KharBlue
+		Dis_Sta_Malakal
+		Dis_Sta_Roseires
+		Dis_Sta_Sennar
+		Dis_Sta_Gabel
+		Dis_Sta_Khashn
+
+
+	Reservoir Observed Daily Releases:
+		Rle_Res_Gabel
+		Rle_Res_HighDam
+		Rle_Res_Khashn
+		Rle_Res_Roseires
+		Rle_Res_Sennar
+
+
+	Reservoir Observed Daily Levels:
+		USL_Res_Gabel
+		DSL_Res_Gabel
+		USL_Res_HighDam
+		USL_Res_Khashn
+		USL_Res_Roseires
+		USL_Res_Sennar
+
+
+	Calculated Passing Daily Volumes:
+		Vol_Atbara
+		Vol_Diem
+		Vol_Dongala
+		Vol_KharBlue
+		Vol_Malakal
+		Vol_Roseires
+		Vol_Sennar
+		Vol_Gabel
