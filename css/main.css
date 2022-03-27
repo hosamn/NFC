@@ -29,6 +29,14 @@
   "mapDiv contentDiv contentDiv"
   "mapDiv contentDiv contentDiv"
   "mapDiv titleDiv titleDiv";
+  
+
+  /* Centering the whole thing :) */
+
+  position: fixed; /* or absolute */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
 /* 
   position: absolute;
@@ -38,7 +46,6 @@
   left: calc(50vw - 550px); */
   
   /* Read: https://css-tricks.com/quick-css-trick-how-to-center-an-object-exactly-in-the-center  */
-  
 }
 
 .mapDiv {
