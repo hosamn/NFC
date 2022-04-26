@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Chart</title>
+	
+	<meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="./css/chart.css">
+
+	<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+	
+	<!-- <script src="https://code.jquery.com/jquery-1.11.3.js"></script> -->
+	<script src="./js/jquery.js"></script>
+
+	<script src="./js/highcharts.js"></script>
+	<script src="./js/highcharts-more.js"></script>
+
+	<script src="./js/chart.js"></script>
+</head>
+
+<body onload="plotLvl()">
+	<div id="main">
+
+		<div
+			id="container"
+			style="width: 100%; height: 360px; margin: 0px auto; color: rgb(0, 0, 0); overflow: hidden;">
+		</div>
+		
+		<div>
+			<ul id="reservoirButtons" class="actions fit">
+				<li><a id="btnLvl" class="button alt fit small                 " onclick="plotLvl()"> Levels    </a></li>
+				<li><a id="btnDis" class="button alt fit small stationsButtons " onclick="plotDis()"> Discharge </a></li>
+				<li><a id="btnRle" class="button alt fit small reservoirButtons" onclick="plotRle()"> Release   </a></li>
+				<li><a id="seprtr" class="button alt fit small fakeButtons     "                    >           </a></li>
+				<li><a id="btncmt" class="button alt fit small                 " onclick="addComm()"> Comments  </a></li>
+			</ul>
+		</div>
+
+		<div id="note" align="right">By: Eng. Hosam El Nagar</div>
+
+	</div>
+
+</body>
+
+</html>

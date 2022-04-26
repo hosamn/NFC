@@ -1,0 +1,212 @@
+/* ************************************************************* */
+/*   PAGE LAYOUT SETUP [block, absolute, table, flexbox, grid]   */
+/* ************************************************************* */
+
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 3fr 0.1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+  "mapDiv contentDiv"
+  "mapDiv titleDiv";
+}
+
+
+.contentDiv {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1.5fr 1.5fr 0.1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+  "pressDiv"
+  "pressDiv"
+  "cntrlDiv";
+}
+
+
+.cntrlDiv {
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+  "sometext buttons";
+}
+
+
+.mapDiv     {grid-area: mapDiv;    }
+.contentDiv {grid-area: contentDiv;}
+.pressDiv   {grid-area: pressDiv;  }
+.cntrlDiv   {grid-area: cntrlDiv;  }
+.titleDiv   {grid-area: titleDiv;  }
+.sometext   {grid-area: sometext;  }
+.buttons    {grid-area: buttons;   }
+
+
+/* justify-content: center; */
+/* justify-items: stretch; */
+/* justify-self: stretch; */
+/* align-content: center; */
+/* align-items: stretch; */
+/* align-self: stretch; */
+
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+.button {display: inline;}
+
+
+
+
+/* ***************** */
+/*   Mobile Setup    */
+/* ***************** */
+
+
+/* @media only screen and (min-width: 500px) {
+
+  .container {
+    display: grid;
+    grid-template-rows: 3fr 2fr 0.1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+    "contentDiv"
+    "mapDiv"
+    "titleDiv";
+  }
+} */
+
+
+
+
+/* *************** */
+/*   PAGE STYLES   */
+/* *************** */
+
+
+.container {
+  background: #96b3ad;
+  padding: 0.6%;
+  justify-content: center;
+  align-content: center;
+  justify-items: stretch;
+  align-items: stretch;
+  
+  /* Centering the whole thing */
+  /* https://css-tricks.com/quick-css-trick-how-to-center-an-object-exactly-in-the-center */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+.mapDiv {
+  background: #436ab0;
+}
+
+
+.contentDiv {
+  margin-left: 1%;
+}
+
+
+.pressDiv {
+  background: #436ab0;
+  position: relative;    /* <<<<< ???????????????? */
+  overflow: hidden;
+  padding-top: 56.25%;
+}
+
+
+.cntrlDiv {
+  padding: 0;
+}
+
+
+.titleDiv {
+  background: linear-gradient( #436ab0, #142d43);
+  color: #c4c2c2 !important;
+  cursor: pointer;
+  text-align: center;
+  margin-left: 1%;
+  font-weight: 600;
+}
+
+
+.sometext {
+  padding-top: 1%;
+  padding-left: 5%;
+  font-weight: 100;
+}
+
+
+.button {
+  cursor: pointer;
+  fill: #3498db;
+  transition: fill 0.2s ease-in-out;
+  -moz-transition: fill 0.2s ease-in-out;
+  -webkit-transition: fill 0.2s ease-in-out;
+  -ms-transition: fill 0.2s ease-in-out;
+}
+
+
+.button:hover {
+  fill: #4aa3df;
+}
+
+
+.button:active {
+  fill: #258cd1;
+}
+
+
+.hidd {
+  opacity: 0%;
+  transition: opacity 0.2s ease-in-out;
+  -moz-transition: opacity 0.2s ease-in-out;
+  -webkit-transition: opacity 0.2s ease-in-out;
+  -ms-transition: opacity 0.2s ease-in-out;
+}
+
+
+.hidd:hover {
+  opacity: 80%;
+}
+
+
+.hidd:target {
+  opacity: 100%;
+}
+
+
+#presDiv {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+}
+
+
+.presFrame {
+  width: 100%;
+  height: 430px;
+}
+
+
+#title {
+  color: #ffffff;
+  text-decoration: underline;
+  text-transform: uppercase;
+}
+
+
+#subtitle {
+  color: #d1d0d0;
+  text-transform: uppercase;
+}
