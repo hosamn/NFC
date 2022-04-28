@@ -1,18 +1,18 @@
 (function init() {
     window.stData = {
-        had  :   { stationType : 1  ,  stationName : "High Aswan",     riverName : "Main Nile"  },
-        ros  :   { stationType : 1  ,  stationName : "Rosiers",        riverName : "Blue Nile"  },
-        gab  :   { stationType : 1  ,  stationName : "Gabal Al Awlia", riverName : "White Nile" },
-        sen  :   { stationType : 1  ,  stationName : "Sennar",         riverName : "Blue Nile"  },
-        don  :   { stationType : 2  ,  stationName : "Dongola",        riverName : "Main Nile"  },
-        khr  :   { stationType : 2  ,  stationName : "Al Khartoom",    riverName : "Blue Nile"  },
-        mlk  :   { stationType : 2  ,  stationName : "Malkal",         riverName : "White Nile" },
-        atb  :   { stationType : 2  ,  stationName : "Atbara",         riverName : "Main Nile"  },
-        dim  :   { stationType : 2  ,  stationName : "El Diem",        riverName : "Blue Nile"  },
-        tna  :   { stationType : 3  ,  stationName : "Tana",           riverName : "Blue Nile" , grealmID : "000402.10d"},
-        vct  :   { stationType : 3  ,  stationName : "Victoria",       riverName : "White Nile", grealmID : "000314.10d"},
-        tkz  :   { stationType : 3  ,  stationName : "Tekezé Dam",     riverName : "Atbara"    , grealmID : "001597.27b"},
-        grd  :   { stationType : 3  ,  stationName : "GERD Dam",       riverName : "Blue Nile" , grealmID : "101296.27b"},
+        had  :   { stationType : 1  ,  stationName : "High Aswan",     riverName : "Main Nile" },
+        ros  :   { stationType : 1  ,  stationName : "Rosiers",        riverName : "Blue Nile" },
+        gab  :   { stationType : 1  ,  stationName : "Gabal Al Awlia", riverName : "White Nile"},
+        sen  :   { stationType : 1  ,  stationName : "Sennar",         riverName : "Blue Nile" },
+        don  :   { stationType : 2  ,  stationName : "Dongola",        riverName : "Main Nile" },
+        khr  :   { stationType : 2  ,  stationName : "Al Khartoom",    riverName : "Blue Nile" },
+        mlk  :   { stationType : 2  ,  stationName : "Malkal",         riverName : "White Nile"},
+        atb  :   { stationType : 2  ,  stationName : "Atbara",         riverName : "Main Nile" },
+        dim  :   { stationType : 2  ,  stationName : "El Diem",        riverName : "Blue Nile" },
+        tna  :   { stationType : 3  ,  stationName : "Tana",           riverName : "Blue Nile" , grealmID : "000402.10d", hywid : "tana"    , dhtid : "110"},
+        vct  :   { stationType : 3  ,  stationName : "Victoria",       riverName : "White Nile", grealmID : "000314.10d", hywid : "victoria", dhtid : "2"  },
+        tkz  :   { stationType : 3  ,  stationName : "Tekezé Dam",     riverName : "Atbara"    , grealmID : "001597.27b", hywid : ""        , dhtid : ""   },
+        grd  :   { stationType : 3  ,  stationName : "GERD Dam",       riverName : "Blue Nile" , grealmID : "101296.27b", hywid : "gerd"    , dhtid : ""   },
     };
     
     window.keyName  = new URLSearchParams(document.location.search).get("kn");  // used as a key and for file name, one of ["had", "don", "gab", "khr", "mlk", "ros", "sen", "atb", "dim", "tna", "vct", "tkz", "grd"]
@@ -121,7 +121,7 @@ function hydrowebParser(keyN) {
     // For reading Hydroweb csv Data files.
     // keyN is the keyName (current lake) Passed to the function again!
 
-    lakeID = stData[keyN].stationName.toLowerCase();
+    lakeID = stData[keyN].hywid;
     let parsedData = []
 
     fName = "hydroprd_L_" + lakeID + ".csv";
@@ -139,12 +139,8 @@ function hydrowebParser(keyN) {
 
             for (i = 1; i < lines.length-1; i++) {
                 line = lines[i].split(',');
-
                 let date1 = new Date(line[dateLoc]).getTime();
-
-                (line[valLoc] == "9999.99") ? (val1 = NaN) : (val1 = +line[valLoc]);
-
-                // console.log(date2, val1)
+                let val1 = +line[valLoc];
                 parsedData.push([date1, val1]);
             }
         },
@@ -152,7 +148,39 @@ function hydrowebParser(keyN) {
     return parsedData;
 };
 
-function yearShift(parsedData, amount=1) {
+function dahitiParser(keyN) {
+    
+    // For reading Hahiti csv Data files.
+    // keyN is the keyName (current lake) Passed to the function again!
+
+    lakeID = stData[keyN].dhtid;
+    let parsedData = []
+
+    fName = lakeID + "_water_level_altimetry.csv";
+    dateLoc = 0;
+    valLoc = 1;
+
+    $.ajax({
+        type: "GET",
+        url: "data/" +  fName,
+        async: false,
+        dataType: "text",
+        success: function (data) {
+            textdata = String(data);
+            lines = textdata.split('\n');
+
+            for (i = 1; i < lines.length-1; i++) {
+                line = lines[i].split(',');
+                let date1 = new Date(line[dateLoc]).getTime();
+                let val1 = +line[valLoc];
+                parsedData.push([date1, val1]);
+            }
+        },
+    });    
+    return parsedData;
+};
+
+function yearShift(parsedData, amount=1, month=7) {
 
     // set current "Dam Year" start and end (ie: 1/7/2020 to 31/7/2021):
     // if today.month > 7 :
@@ -163,14 +191,14 @@ function yearShift(parsedData, amount=1) {
     //     end: 31/7/today.year
 
     var today = new Date();
-    if (today.getMonth() > 6) { // January is 0, not 1
-        var yrStart = new Date(today.getFullYear()  ,6,1);
-        var yrEnd   = new Date(today.getFullYear()+1,6,31);
+    if (today.getMonth() > month-1) { // January is 0, not 1 so 7 is 6 here
+        var yrStart = new Date(today.getFullYear()  ,month-1,1);
+        var yrEnd   = new Date(today.getFullYear()+1,month-1,31);
     }
     else // if we are in a month before Aug
     {
-        var yrStart = new Date(today.getFullYear()-1,6,1);
-        var yrEnd   = new Date(today.getFullYear()  ,6,31);
+        var yrStart = new Date(today.getFullYear()-1,month-1,1);
+        var yrEnd   = new Date(today.getFullYear()  ,month-1,31);
     }
 
     // console.log("these should be the current dam year start and end:")
@@ -471,6 +499,19 @@ function plotLvl() {
                             lineWidth: 3,
                             marker: {enabled: false},
                             color: 'darkblue',
+                            zIndex: 2,
+                            states: {hover: {lineWidthPlus: 0}, inactive: {opacity: 1}}
+                        },
+    
+                        {
+                            name: 'Level Last Year',
+                            data: yearShift(dataParser("Lvl"),1,4),
+                            type: 'spline',
+                            connectNulls: true,
+                            lineWidth: 2,
+                            dashStyle: "Dash",
+                            marker: {enabled: false},
+                            color: 'grey',
                             zIndex: 1,
                             states: {hover: {lineWidthPlus: 0}, inactive: {opacity: 1}}
                         },
@@ -481,7 +522,7 @@ function plotLvl() {
                             type: 'spline',
                             connectNulls: true,
                             fillOpacity: 0.6,
-                            // dashStyle: 'Dot',
+                            dashStyle: 'Dot',
                             visible: true,
                             marker: {enabled: false, states: {hover: {enabled: false}}},
                             color: Highcharts.getOptions().colors[0],
@@ -499,7 +540,7 @@ function plotLvl() {
                             zIndex: 0,
                             lineWidth: 0,
                             dashStyle: 'Dash',
-                            linkedTo: ':previous',
+                            // linkedTo: ':previous',
                             visible: true,
                             color: Highcharts.getOptions().colors[0],
                             marker: {enabled: false, states: {hover: {enabled: false}}},
@@ -633,14 +674,15 @@ function plotLvl() {
                             connectNulls: true,
                             visible: true,
                             marker: {enabled: true, symbol: 'circle', radius:2},
-                            lineWidth: 0,
+                            dashStyle: 'Dot',
+                            // lineWidth: 0,
                             color: '#7cb5ec',
                             zIndex: 1,
                             states: {hover: {lineWidthPlus: 0}, inactive: {opacity: 1}}
                         },
                         
                         {
-                            name: 'GR MovAvg',
+                            name: 'GR Average',
                             data: grealmParser(keyName, true),
                             type: 'spline',
                             connectNulls: true,
@@ -655,15 +697,31 @@ function plotLvl() {
                         },
                         
                         {
-                            name: 'hydroWEB',
+                            name: 'HydroWEB',
                             data: hydrowebParser(keyName),
                             type: 'spline',
                             connectNulls: true,
-                            dashStyle: 'Dash',
+                            dashStyle: 'LongDash',
                             visible: true,
                             marker: {enabled: true, symbol: 'circle', radius:2},
-                            lineWidth: 0,
+                            lineWidth: 1,
                             color: 'lightgreen',
+                            // color: Highcharts.getOptions().colors[0],
+                            zIndex: 0,
+                            states: {hover: {lineWidthPlus: 0}, inactive: {opacity: 1}},
+                            // enableMouseTracking: false
+                        },
+                        
+                        {
+                            name: 'DAHITI',
+                            data: dahitiParser(keyName),
+                            type: 'spline',
+                            connectNulls: true,
+                            dashStyle: 'LongDash',
+                            visible: true,
+                            marker: {enabled: true, symbol: 'circle', radius:2},
+                            lineWidth: 1,
+                            color: 'grey',
                             // color: Highcharts.getOptions().colors[0],
                             zIndex: 0,
                             states: {hover: {lineWidthPlus: 0}, inactive: {opacity: 1}},
@@ -1095,7 +1153,7 @@ function addComm() {
 };
 
 
-// amCharts Color Theme:
+// amCharts Colors:
 // Magenta: #A367DC;
 // Dark Blue: #6771DC;
 // Lighter Blue: #6794DC;
