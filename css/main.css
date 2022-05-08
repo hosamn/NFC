@@ -201,12 +201,14 @@
 
 #title {
   color: #ffffff;
-  text-decoration: underline;
+  /* font-size: larger; */
+  /* text-decoration: underline; */
   text-transform: uppercase;
 }
 
 
-#subtitle {
+.subtitle {
   color: #d1d0d0;
   text-transform: uppercase;
+  font-size: smaller;
 }

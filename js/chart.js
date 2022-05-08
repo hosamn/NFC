@@ -1,9 +1,10 @@
 (function init() {
     window.stData = {
         had  :   { stationType : 1  ,  stationName : "High Aswan",     riverName : "Main Nile" },
+        mrw  :   { stationType : 1  ,  stationName : "Merowe",         riverName : "Main Nile" },
+        sen  :   { stationType : 1  ,  stationName : "Sennar",         riverName : "Blue Nile" },
         ros  :   { stationType : 1  ,  stationName : "Rosiers",        riverName : "Blue Nile" },
         gab  :   { stationType : 1  ,  stationName : "Gabal Al Awlia", riverName : "White Nile"},
-        sen  :   { stationType : 1  ,  stationName : "Sennar",         riverName : "Blue Nile" },
         don  :   { stationType : 2  ,  stationName : "Dongola",        riverName : "Main Nile" },
         khr  :   { stationType : 2  ,  stationName : "Al Khartoom",    riverName : "Blue Nile" },
         mlk  :   { stationType : 2  ,  stationName : "Malkal",         riverName : "White Nile"},
@@ -14,15 +15,15 @@
         tkz  :   { stationType : 3  ,  stationName : "Tekezé Dam",     riverName : "Atbara"    , grealmID : "001597.27b", hywid : ""        , dhtid : ""   },
         grd  :   { stationType : 3  ,  stationName : "GERD Dam",       riverName : "Blue Nile" , grealmID : "101296.27b", hywid : "gerd"    , dhtid : ""   },
     };
-    
-    window.keyName  = new URLSearchParams(document.location.search).get("kn");  // used as a key and for file name, one of ["had", "don", "gab", "khr", "mlk", "ros", "sen", "atb", "dim", "tna", "vct", "tkz", "grd"]
+
+    window.keyName  = new URLSearchParams(document.location.search).get("kn");  // used as a key and for file name, one of ["had", "mrw", "don", "gab", "khr", "mlk", "ros", "sen", "atb", "dim", "tna", "vct", "tkz", "grd"]
     // for (const [key, value] of new URLSearchParams(window.location.search).entries()) {console.log(key, ' : ', value)}
 
     window.stationType = stData[keyName].stationType;  // 1 for dams, 2 for stations, 3 for Lakes, used for chart customization.
     window.stationName = stData[keyName].stationName;  // used for chartTitle, one of ["High Aswan", "Dongola", "Gabal Al Awlia", "Al Khartoom", "Malkal", "Rosiers", "Sennar", "Atbara", "El Diem"]
     window.riverName   = stData[keyName].riverName;    // used for chartTitle, one of ["Blue Nile", "Main Nile", "White Nile"]
     // alert(stData.keyName.stationName);
-    
+
 })();
 
 function dataParser(csvDataType) {
@@ -157,6 +158,39 @@ function dahitiParser(keyN) {
     let parsedData = []
 
     fName = lakeID + "_water_level_altimetry.csv";
+    dateLoc = 0;
+    valLoc = 1;
+
+    $.ajax({
+        type: "GET",
+        url: "data/" +  fName,
+        async: false,
+        dataType: "text",
+        success: function (data) {
+            textdata = String(data);
+            lines = textdata.split('\n');
+
+            for (i = 1; i < lines.length-1; i++) {
+                line = lines[i].split(',');
+                let date1 = new Date(line[dateLoc]).getTime();
+                let val1 = +line[valLoc];
+                parsedData.push([date1, val1]);
+            }
+        },
+    });    
+    return parsedData;
+};
+
+function mwriParser(keyN) {
+    
+    // For reading mwri csv Data files.
+    // we formated MWRI data as Hydroweb data, so we use the hywid here too.
+    // keyN is the keyName (current lake) Passed to the function again!
+
+    lakeID = stData[keyN].hywid;
+    let parsedData = []
+
+    fName = "mwri_" + lakeID + ".csv";
     dateLoc = 0;
     valLoc = 1;
 
@@ -420,7 +454,7 @@ function plotLvl() {
                     tooltip: {
                         enabled: true,
                         backgroundColor: {linearGradient: [0, 0, 0, 60],stops: [[0, '#FFFFFF'],[1, '#E0E0E0']]},
-                        borderColor:  "#AAA",
+                        borderColor:  "lightgrey",
                         borderRadius:  15,
                         borderWidth:  1,
                         distance: 50,
@@ -432,16 +466,16 @@ function plotLvl() {
                     },
 
                     legend: {
-                        backgroundColor: '#FFFFFF',
-                        borderColor: '#FCFFC5',
-                        borderWidth: 1,
+                        backgroundColor: '#c3d3d315',
+                        // borderColor: "lightgrey",
+                        // borderWidth: 1,
                         enabled:true,
                         floating: true,
                         align: 'right',
                         verticalAlign: 'top',
                         layout: 'vertical',
                         alignColumns: true,
-                        itemMarginBottom: 10,
+                        itemMarginBottom: 5,
                     },
 
                     credits: {
@@ -595,7 +629,7 @@ function plotLvl() {
                     tooltip: {
                         enabled: true,
                         backgroundColor: {linearGradient: [0, 0, 0, 60],stops: [[0, '#FFFFFF'],[1, '#E0E0E0']]},
-                        borderColor:  "#AAA",
+                        borderColor:  "lightgrey",
                         borderRadius:  15,
                         borderWidth:  1,
                         distance: 50,
@@ -607,16 +641,16 @@ function plotLvl() {
                     },
 
                     legend: {
-                        backgroundColor: '#FFFFFF',
-                        borderColor: '#FCFFC5',
-                        borderWidth: 1,
+                        backgroundColor: '#c3d3d315',
+                        // borderColor: "lightgrey",
+                        // borderWidth: 1,
                         enabled:true,
                         floating: true,
                         align: 'right',
                         verticalAlign: 'top',
                         layout: 'vertical',
                         alignColumns: true,
-                        itemMarginBottom: 10,
+                        itemMarginBottom: 5,
                     },
 
                     credits: {
@@ -668,26 +702,27 @@ function plotLvl() {
 
                     series: [
                         {
-                            name: 'GREALM',
+                            name: 'U.S. Agri. Dept. (GREALM)',
                             data: grealmParser(keyName),
                             type: 'spline',
                             connectNulls: true,
                             visible: true,
                             marker: {enabled: true, symbol: 'circle', radius:2},
-                            dashStyle: 'Dot',
-                            // lineWidth: 0,
+                            // dashStyle: 'Dot',
+                            dashStyle: 'LongDash',
+                            lineWidth: 1,
                             color: '#7cb5ec',
                             zIndex: 1,
                             states: {hover: {lineWidthPlus: 0}, inactive: {opacity: 1}}
                         },
                         
                         {
-                            name: 'GR Average',
+                            name: 'GREALM Rolling Average',
                             data: grealmParser(keyName, true),
                             type: 'spline',
                             connectNulls: true,
                             // dashStyle: 'Dot',
-                            visible: true,
+                            visible: false,
                             marker: {enabled: false, states: {hover: {enabled: false}}},
                             color: 'lightblue',
                             // color: Highcharts.getOptions().colors[0],
@@ -697,7 +732,7 @@ function plotLvl() {
                         },
                         
                         {
-                            name: 'HydroWEB',
+                            name: 'Theia Services (HydroWEB)',
                             data: hydrowebParser(keyName),
                             type: 'spline',
                             connectNulls: true,
@@ -713,7 +748,7 @@ function plotLvl() {
                         },
                         
                         {
-                            name: 'DAHITI',
+                            name: 'Munich Technical Univ. (DAHITI)',
                             data: dahitiParser(keyName),
                             type: 'spline',
                             connectNulls: true,
@@ -722,6 +757,22 @@ function plotLvl() {
                             marker: {enabled: true, symbol: 'circle', radius:2},
                             lineWidth: 1,
                             color: 'grey',
+                            // color: Highcharts.getOptions().colors[0],
+                            zIndex: 0,
+                            states: {hover: {lineWidthPlus: 0}, inactive: {opacity: 1}},
+                            // enableMouseTracking: false
+                        },
+                        
+                        {
+                            name: 'MWRI (IDSSD...)',
+                            data: mwriParser(keyName),
+                            type: 'spline',
+                            connectNulls: true,
+                            dashStyle: 'LongDash',
+                            visible: true,
+                            marker: {enabled: true, symbol: 'circle', radius:2},
+                            lineWidth: 1,
+                            color: 'orange',
                             // color: Highcharts.getOptions().colors[0],
                             zIndex: 0,
                             states: {hover: {lineWidthPlus: 0}, inactive: {opacity: 1}},
@@ -775,7 +826,7 @@ function plotLvl() {
                     tooltip: {
                         enabled: true,
                         backgroundColor: {linearGradient: [0, 0, 0, 60],stops: [[0, '#FFFFFF'],[1, '#E0E0E0']]},
-                        borderColor:  "#AAA",
+                        borderColor:  "lightgrey",
                         borderRadius:  15,
                         borderWidth:  1,
                         distance: 50,
@@ -787,16 +838,16 @@ function plotLvl() {
                     },
 
                     legend: {
-                        backgroundColor: '#FFFFFF',
-                        borderColor: '#FCFFC5',
-                        borderWidth: 1,
+                        backgroundColor: '#c3d3d315',
+                        // borderColor: "lightgrey",
+                        // borderWidth: 1,
                         enabled:true,
                         floating: true,
                         align: 'right',
                         verticalAlign: 'top',
                         layout: 'vertical',
                         alignColumns: true,
-                        itemMarginBottom: 10,
+                        itemMarginBottom: 5,
                     },
 
                     credits: {
@@ -938,7 +989,7 @@ function plotDis() {
                     tooltip: {
                         enabled: true,
                         backgroundColor: {linearGradient: [0, 0, 0, 60],stops: [[0, '#FFFFFF'],[1, '#E0E0E0']]},
-                        borderColor:  "#AAA",
+                        borderColor:  "lightgrey",
                         borderRadius:  15,
                         borderWidth:  1,
                         distance: 50,
@@ -950,16 +1001,16 @@ function plotDis() {
                     },
 
                     legend: {
-                        backgroundColor: '#FFFFFF',
-                        borderColor: '#FCFFC5',
-                        borderWidth: 1,
+                        backgroundColor: '#c3d3d315',
+                        // borderColor: "lightgrey",
+                        // borderWidth: 1,
                         enabled:true,
                         floating: true,
                         align: 'right',
                         verticalAlign: 'top',
                         layout: 'vertical',
                         alignColumns: true,
-                        itemMarginBottom: 10,
+                        itemMarginBottom: 5,
                     },
                     credits: {
                         enabled: false
@@ -1112,7 +1163,7 @@ function plotRle() {
                     tooltip: {
                         enabled: true,
                         backgroundColor: {linearGradient: [0, 0, 0, 60],stops: [[0, '#FFFFFF'],[1, '#E0E0E0']]},
-                        borderColor:  "#AAA",
+                        borderColor:  "lightgrey",
                         borderRadius:  15,
                         borderWidth:  1,
                         distance: 50,
@@ -1123,16 +1174,16 @@ function plotRle() {
                         valueSuffix: " m3/sec"
                     },
                     legend: {
-                        backgroundColor: '#FFFFFF',
-                        borderColor: '#FCFFC5',
-                        borderWidth: 1,
+                        backgroundColor: '#c3d3d315',
+                        // borderColor: "lightgrey",
+                        // borderWidth: 1,
                         enabled:true,
                         floating: true,
                         align: 'right',
                         verticalAlign: 'top',
                         layout: 'vertical',
                         alignColumns: true,
-                        itemMarginBottom: 10,
+                        itemMarginBottom: 5,
                     },
 
                     credits: {

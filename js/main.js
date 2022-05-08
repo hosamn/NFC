@@ -28,7 +28,6 @@ function myStart() {
 // }
 
 
-
 function gotoSlide(id) { // i as 'had_pg'
 
     for (let i = 0; i < frameList.length; i++) {
