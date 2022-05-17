@@ -1,19 +1,20 @@
 (function init() {
     window.stData = {
-        had  :   { stationType : 1  ,  stationName : "High Aswan",     riverName : "Main Nile" },
-        mrw  :   { stationType : 1  ,  stationName : "Merowe",         riverName : "Main Nile" },
-        sen  :   { stationType : 1  ,  stationName : "Sennar",         riverName : "Blue Nile" },
-        ros  :   { stationType : 1  ,  stationName : "Rosiers",        riverName : "Blue Nile" },
-        gab  :   { stationType : 1  ,  stationName : "Gabal Al Awlia", riverName : "White Nile"},
-        don  :   { stationType : 2  ,  stationName : "Dongola",        riverName : "Main Nile" },
-        khr  :   { stationType : 2  ,  stationName : "Al Khartoom",    riverName : "Blue Nile" },
-        mlk  :   { stationType : 2  ,  stationName : "Malkal",         riverName : "White Nile"},
-        atb  :   { stationType : 2  ,  stationName : "Atbara",         riverName : "Main Nile" },
-        dim  :   { stationType : 2  ,  stationName : "El Diem",        riverName : "Blue Nile" },
-        tna  :   { stationType : 3  ,  stationName : "Tana",           riverName : "Blue Nile" , grealmID : "000402.10d", hywid : "tana"    , dhtid : "110"},
-        vct  :   { stationType : 3  ,  stationName : "Victoria",       riverName : "White Nile", grealmID : "000314.10d", hywid : "victoria", dhtid : "2"  },
-        tkz  :   { stationType : 3  ,  stationName : "Tekezé Dam",     riverName : "Atbara"    , grealmID : "001597.27b", hywid : ""        , dhtid : ""   },
-        grd  :   { stationType : 3  ,  stationName : "GERD Dam",       riverName : "Blue Nile" , grealmID : "101296.27b", hywid : "gerd"    , dhtid : ""   },
+        had  :   { stationType : 1  ,  stationName : "High Aswan",     riverName : "Main Nile" , mwriid : ["Damlakes", "بحيرة السد العالي"]      },
+     // tsk  :   { stationType : 1  ,  stationName : "Toshka",         riverName : "Main Nile" , mwriid : ["Toshka", "بحيرة منخفض توشكي 1"]      },
+        mrw  :   { stationType : 1  ,  stationName : "Merowe",         riverName : "Main Nile" , mwriid : ["Damlakes", "مروى"]                   },
+        sen  :   { stationType : 1  ,  stationName : "Sennar",         riverName : "Blue Nile"                                                   },
+        ros  :   { stationType : 1  ,  stationName : "Rosiers",        riverName : "Blue Nile" , mwriid : ["Damlakes", "الروصيرص"]               },
+        gab  :   { stationType : 1  ,  stationName : "Gabal Al Awlia", riverName : "White Nile"                                                  },
+        don  :   { stationType : 2  ,  stationName : "Dongola",        riverName : "Main Nile"                                                   },
+        khr  :   { stationType : 2  ,  stationName : "Al Khartoom",    riverName : "Blue Nile"                                                   },
+        mlk  :   { stationType : 2  ,  stationName : "Malkal",         riverName : "White Nile"                                                  },
+        atb  :   { stationType : 2  ,  stationName : "Atbara",         riverName : "Main Nile" , mwriid : ["Damlakes", "بحيرة سد عطبرة و ستيت"]  },
+        dim  :   { stationType : 2  ,  stationName : "El Diem",        riverName : "Blue Nile"                                                   },
+        tna  :   { stationType : 3  ,  stationName : "Tana",           riverName : "Blue Nile" , mwriid : ["Naturallakes", "بحيرة تانا"],        grealmID : "000402.10d", hywid : "tana"    , dhtid : "110"},
+        vct  :   { stationType : 3  ,  stationName : "Victoria",       riverName : "White Nile", mwriid : ["Naturallakes", "بحيرة فيكتوريا"],    grealmID : "000314.10d", hywid : "victoria", dhtid : "2"  },
+        tkz  :   { stationType : 3  ,  stationName : "Tekezé Dam",     riverName : "Atbara"    , mwriid : ["Damlakes", "بحيرة سد TK5"],          grealmID : "001597.27b", hywid : ""        , dhtid : ""   },
+        grd  :   { stationType : 3  ,  stationName : "GERD Dam",       riverName : "Blue Nile" , mwriid : ["Damlakes", "بحيرة سد النهضة"],       grealmID : "101296.27b", hywid : "gerd"    , dhtid : ""   },
     };
 
     window.keyName  = new URLSearchParams(document.location.search).get("kn");  // used as a key and for file name, one of ["had", "mrw", "don", "gab", "khr", "mlk", "ros", "sen", "atb", "dim", "tna", "vct", "tkz", "grd"]
@@ -23,6 +24,28 @@
     window.stationName = stData[keyName].stationName;  // used for chartTitle, one of ["High Aswan", "Dongola", "Gabal Al Awlia", "Al Khartoom", "Malkal", "Rosiers", "Sennar", "Atbara", "El Diem"]
     window.riverName   = stData[keyName].riverName;    // used for chartTitle, one of ["Blue Nile", "Main Nile", "White Nile"]
     // alert(stData.keyName.stationName);
+
+
+    window.defaultLegend = {
+        // title: {
+        //     text: 'Legend<br/><span style="font-size: 9px; color: #666; font-weight: normal">(Click item to hide)</span>',
+        //     style: { fontStyle: 'italic' }
+        // },
+        // width: '66%',
+        backgroundColor: '#c3d3d315',
+        // borderColor: "lightgrey",
+        // borderWidth: 1,
+        enabled:true,
+        floating: false,
+        align: 'center',
+        verticalAlign: 'bottom',
+        layout: 'horizontal',
+        alignColumns: true,
+        // showCheckbox : true,
+        // itemCheckboxStyle: {"width": "13px", "height": "13px", "position":"absolute"},
+        // itemMarginBottom: 5,
+        itemMarginTop: 3,
+    }
 
 })();
 
@@ -184,15 +207,15 @@ function dahitiParser(keyN) {
 function mwriParser(keyN) {
     
     // For reading mwri csv Data files.
-    // we formated MWRI data as Hydroweb data, so we use the hywid here too.
     // keyN is the keyName (current lake) Passed to the function again!
 
-    lakeID = stData[keyN].hywid;
+    fName = stData[keyN].mwriid[0] + ".csv";
+    lakeN = stData[keyN].mwriid[1];
     let parsedData = []
 
-    fName = "mwri_" + lakeID + ".csv";
-    dateLoc = 0;
-    valLoc = 1;
+    dateLoc = 1;
+    nameLoc = 2;
+    lvlLoc = 3;
 
     $.ajax({
         type: "GET",
@@ -200,14 +223,18 @@ function mwriParser(keyN) {
         async: false,
         dataType: "text",
         success: function (data) {
+
             textdata = String(data);
             lines = textdata.split('\n');
 
             for (i = 1; i < lines.length-1; i++) {
                 line = lines[i].split(',');
-                let date1 = new Date(line[dateLoc]).getTime();
-                let val1 = +line[valLoc];
-                parsedData.push([date1, val1]);
+
+                if (line[nameLoc] == lakeN) {
+                    let date1 = new Date(line[dateLoc].replace(" 00:00:00.000","")).getTime();
+                    let val1 = +line[lvlLoc];
+                    parsedData.push([date1, val1]);
+                }
             }
         },
     });    
@@ -465,22 +492,9 @@ function plotLvl() {
                         valueSuffix: " m"
                     },
 
-                    legend: {
-                        backgroundColor: '#c3d3d315',
-                        // borderColor: "lightgrey",
-                        // borderWidth: 1,
-                        enabled:true,
-                        floating: true,
-                        align: 'right',
-                        verticalAlign: 'top',
-                        layout: 'vertical',
-                        alignColumns: true,
-                        itemMarginBottom: 5,
-                    },
+                    legend: defaultLegend,
 
-                    credits: {
-                        enabled: false
-                    },
+                    credits: { enabled: false },
 
                 });
             }
@@ -640,25 +654,11 @@ function plotLvl() {
                         valueSuffix: " m"
                     },
 
-                    legend: {
-                        backgroundColor: '#c3d3d315',
-                        // borderColor: "lightgrey",
-                        // borderWidth: 1,
-                        enabled:true,
-                        floating: true,
-                        align: 'right',
-                        verticalAlign: 'top',
-                        layout: 'vertical',
-                        alignColumns: true,
-                        itemMarginBottom: 5,
-                    },
+                    legend: defaultLegend,
 
-                    credits: {
-                        enabled: false
-                    },
+                    credits: { enabled: false },
 
                 });
-
             }
 
             else if (stationType == '3') {
@@ -707,10 +707,10 @@ function plotLvl() {
                             type: 'spline',
                             connectNulls: true,
                             visible: true,
-                            marker: {enabled: true, symbol: 'circle', radius:2},
+                            marker: {enabled: true, symbol: 'circle', radius:1},
                             // dashStyle: 'Dot',
-                            dashStyle: 'LongDash',
-                            lineWidth: 1,
+                            // dashStyle: 'LongDash',
+                            // lineWidth: 1,
                             color: '#7cb5ec',
                             zIndex: 1,
                             states: {hover: {lineWidthPlus: 0}, inactive: {opacity: 1}}
@@ -736,10 +736,10 @@ function plotLvl() {
                             data: hydrowebParser(keyName),
                             type: 'spline',
                             connectNulls: true,
-                            dashStyle: 'LongDash',
+                            // dashStyle: 'LongDash',
                             visible: true,
-                            marker: {enabled: true, symbol: 'circle', radius:2},
-                            lineWidth: 1,
+                            marker: {enabled: true, symbol: 'circle', radius:1},
+                            // lineWidth: 1,
                             color: 'lightgreen',
                             // color: Highcharts.getOptions().colors[0],
                             zIndex: 0,
@@ -752,10 +752,10 @@ function plotLvl() {
                             data: dahitiParser(keyName),
                             type: 'spline',
                             connectNulls: true,
-                            dashStyle: 'LongDash',
+                            // dashStyle: 'LongDash',
                             visible: true,
-                            marker: {enabled: true, symbol: 'circle', radius:2},
-                            lineWidth: 1,
+                            marker: {enabled: true, symbol: 'circle', radius:1},
+                            // lineWidth: 1,
                             color: 'grey',
                             // color: Highcharts.getOptions().colors[0],
                             zIndex: 0,
@@ -764,14 +764,14 @@ function plotLvl() {
                         },
                         
                         {
-                            name: 'MWRI (IDSSD...)',
+                            name: 'MWRI (DEM - by IDSSD)',
                             data: mwriParser(keyName),
                             type: 'spline',
                             connectNulls: true,
-                            dashStyle: 'LongDash',
+                            // dashStyle: 'LongDash',
                             visible: true,
-                            marker: {enabled: true, symbol: 'circle', radius:2},
-                            lineWidth: 1,
+                            marker: {enabled: true, symbol: 'circle', radius:1},
+                            // lineWidth: 1,
                             color: 'orange',
                             // color: Highcharts.getOptions().colors[0],
                             zIndex: 0,
@@ -837,22 +837,9 @@ function plotLvl() {
                         valueSuffix: " m"
                     },
 
-                    legend: {
-                        backgroundColor: '#c3d3d315',
-                        // borderColor: "lightgrey",
-                        // borderWidth: 1,
-                        enabled:true,
-                        floating: true,
-                        align: 'right',
-                        verticalAlign: 'top',
-                        layout: 'vertical',
-                        alignColumns: true,
-                        itemMarginBottom: 5,
-                    },
+                    legend: defaultLegend,
 
-                    credits: {
-                        enabled: false
-                    },
+                    credits: { enabled: false },
 
                 });
 
@@ -1000,24 +987,11 @@ function plotDis() {
                         valueSuffix: " m3/sec"
                     },
 
-                    legend: {
-                        backgroundColor: '#c3d3d315',
-                        // borderColor: "lightgrey",
-                        // borderWidth: 1,
-                        enabled:true,
-                        floating: true,
-                        align: 'right',
-                        verticalAlign: 'top',
-                        layout: 'vertical',
-                        alignColumns: true,
-                        itemMarginBottom: 5,
-                    },
-                    credits: {
-                        enabled: false
-                    },
+                    legend: defaultLegend,
+
+                    credits: { enabled: false },
 
                 });
-
             };
 
         },
@@ -1173,22 +1147,10 @@ function plotRle() {
                         valueDecimals: 2,
                         valueSuffix: " m3/sec"
                     },
-                    legend: {
-                        backgroundColor: '#c3d3d315',
-                        // borderColor: "lightgrey",
-                        // borderWidth: 1,
-                        enabled:true,
-                        floating: true,
-                        align: 'right',
-                        verticalAlign: 'top',
-                        layout: 'vertical',
-                        alignColumns: true,
-                        itemMarginBottom: 5,
-                    },
 
-                    credits: {
-                        enabled: false
-                    },
+                    legend: defaultLegend,
+
+                    credits: { enabled: false },
 
                 });
             };

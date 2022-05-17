@@ -45,6 +45,10 @@ function gotoSlide(id) { // i as 'had_pg'
         window.location.hash = ''
         window.location = '#' + id.split('_')[0];
     }
+
+    // document.getElementById(id).contentWindow.onload = "plotLvl()" ;
+    // document.getElementById(id).contentWindow.document.body.plotLvl ;
+
 }
 
 
