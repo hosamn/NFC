@@ -428,6 +428,7 @@ function plotLvl() {
                             showInLegend: true,
                             marker: {enabled: false},
                             color: '#456B41a0',
+                            connectNulls: true,
                             zIndex: 0,
                             dashStyle: 'ShortDash',
                             // dashStyle: 'ShortDot',
@@ -903,6 +904,7 @@ function plotDis() {
                             showInLegend: true,
                             lineWidth: 3,
                             marker: {enabled: false},
+                            connectNulls: true,
                             color: 'darkblue',
                             zIndex: 1,
                             states: {hover: {lineWidthPlus: 0}}
@@ -1054,6 +1056,7 @@ function plotRle() {
                             showInLegend: true,
                             lineWidth: 3,
                             marker: {enabled: false},
+                            connectNulls: true,
                             color: 'darkblue',
                             zIndex: 1,
                             states: {hover: {lineWidthPlus: 0}, inactive: {opacity: 1}},
@@ -1066,6 +1069,7 @@ function plotRle() {
                             visible: true,
                             showInLegend: true,
                             marker: {enabled: false},
+                            connectNulls: true,
                             color: '#2b908fe0',
                             zIndex: 0,
                             dashStyle: 'ShortDash',
@@ -1081,6 +1085,7 @@ function plotRle() {
                             visible: false,
                             showInLegend: true,
                             marker: {enabled: false},
+                            connectNulls: true,
                             color: '#FF90BFc0',
                             zIndex: 0,
                             dashStyle: 'ShortDash',
@@ -1164,7 +1169,6 @@ function addComm() {
         '<iframe id="" class="commFrame" src="./board.html?sn='+ stationName +'" scrolling="no"></iframe>';
     // I should find an alternative to all these nested iframes!!
 };
-
 
 // amCharts Colors:
 // Magenta: #A367DC;
